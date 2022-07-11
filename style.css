@@ -1,57 +1,74 @@
+:root {
+  --lavander:   #363062;
+  --purple:     #4D4C7D;
+  --pale-purple:#827397;
+  --cream:      #E9D5DA;
+  --container-size: min(1100px, 90%);
+}
+
 *  {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: space-between;
+  background-color: var(--pale-purple);
+  margin-bottom: 75px;
 }
 
 header, footer {
   width: 100%;
   color: white;
-  background-color: lightslategrey;
+  background-color: var(--lavander);
   padding: 10px 0;
-}
-
-header > div {
-  margin: 0 auto;
-  width: min(1000px, 80%);
-}
-
-footer {
-  text-align: center;
-}
-
-main {
-  padding: 20px 0;
-  width: 100%;
-  height: 100%;
-}
-
-.container {
-  margin: 0 auto;
-  height: 100%;
-  width: min(1000px, 80%);
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  border: 1px solid black;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-}
-
-.upper {
-  padding: 20px;
   display: flex;
   justify-content: center;
 }
 
+header svg {
+  width: 100px;
+  filter: invert(100%);
+}
+
+header {
+  font-size: 40px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+main {
+  margin: 0 auto;
+}
+
+hr {
+  width: var(--container-size);
+}
+
+.container {
+  margin-top: 20px;
+  width: var(--container-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+
 #addBook {
+  width: 150px;
+  background-color: var(--pale-purple);
+  color: white;
   font-size: 20px;
   padding: 10px 20px;
   border-radius: 20px;
@@ -60,21 +77,22 @@ main {
 }
 
 #addBook:hover {
-  filter: invert(100%);
+  background-color: var(--lavander);
 }
 
-.showLibrary {
-  overflow: auto;
+#addBook:active {
+  background-color: black;
 }
 
 .books {
-  padding: 20px;
+  width: var(--container-size);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
 }
 
-.book {
-  height: 250px;
+.book-info {
+  height: 300px;
+  background-color: var(--cream);
   border: 1px solid black;
 }
