@@ -27,5 +27,36 @@
   <footer>
     Copyright &copy; Sanjero 2022
   </footer>
+
+  <!-- Modal window-->
+  <section class="modal" id="myModal">
+    <div class="modal-content">
+      <!-- <span class="close">&times;</span> -->
+      <h1>Add Book</h1>
+      <hr>
+      <form id="bookForm">
+
+        <label for="title"> Title </label>
+        <input type="text" required>
+        
+        <label for="author"> Author </label>
+        <input type="text" required>
+        
+        <label for="numberOfPages" >Pages </label>
+        <!-- <input type="number" required> -->
+        <div class="pageNumber">
+          <button type="button" class="decrement">-</button>
+          <input type="number" name=numberOfPages class="number" value="0"required>
+          <button type="button" class="increment">+</button>
+        </div>
+      </form>
+
+      <div class="btns">
+        <button id="cancel">Cancel</button>
+        <button type="submit" form="bookForm" id="submit">Submit</button>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>

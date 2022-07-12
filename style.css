@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 :root {
   --lavander:   #363062;
   --purple:     #4D4C7D;
@@ -9,7 +11,7 @@
 *  {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -64,12 +66,12 @@ hr {
   gap: 10px;
 }
 
-
 #addBook {
-  width: 150px;
+  width: 175px;
   background-color: var(--pale-purple);
   color: white;
   font-size: 20px;
+  font-weight: bold;
   padding: 10px 20px;
   border-radius: 20px;
   border: 1px solid white;
@@ -93,6 +95,112 @@ hr {
 
 .book-info {
   height: 300px;
-  background-color: var(--cream);
+  background-color: white;
   border: 1px solid black;
+}
+
+.modal {
+  background-color:rgba(0,0,0,0.3);
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 300px;
+  max-width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+input {
+  /* box-sizing: border-box; */
+  width: 90%;
+  height: 30px;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.pageNumber {
+  width: auto;
+  border: 1px solid black;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pageNumber button {
+  width: 30px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.number {
+  border: none;
+  width: 30px;
+  outline: none;
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btns button {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  width: 100px;
+  color: white;
+}
+
+#cancel {
+  background-color: red;
+}
+
+#submit {
+  background-color: rgb(0, 170, 23);
 }
