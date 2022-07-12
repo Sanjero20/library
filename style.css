@@ -123,39 +123,57 @@ hr {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
+  border-radius: 10px;
   width: 300px;
   max-width: 100%;
-  height: 400px;
+  height: 425px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+}
+
+.modal-content .header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+
+.modal-content hr {
+  width: 100%;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
 input {
-  /* box-sizing: border-box; */
+  text-align: center;
   width: 90%;
   height: 30px;
   font-size: 20px;
   padding: 5px;
 }
 
+.status-read,
 .pageNumber {
-  width: auto;
-  border: 1px solid black;
-  margin: 10px;
+  width: 70%;
+  /* border: 1px solid black; */
   padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+}
+
+.pageNumber input {
+  width: 50px;
+  border: 1px solid black;
 }
 
 .pageNumber button {
@@ -164,13 +182,19 @@ input {
   font-weight: bold;
 }
 
+.status-read input {
+  width: 30px;
+  accent-color: green;
+}
+
 .number {
   border: none;
-  width: 30px;
+  width: 45px;
   outline: none;
   text-align: center;
 }
 
+/* Hide input[number] arrows*/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
