@@ -17,8 +17,8 @@ function Book(title, author, pages, status) {
       <div class="read">Read</div>
 
       <section class="edit-book">
-        <div class="edit">${editSVG}</div>
-        <div class="delete">${deleteSVG}</div>
+        <div id=editBook class="edit">${editSVG}</div>
+        <div id="deleteBook" class="delete">${deleteSVG}</div>
       </section>
     `;
 
@@ -41,6 +41,26 @@ function updateLibrary() {
   myLibrary.forEach(book => {
     const div = book.createDiv();
     bookContainer.appendChild(div)
+  })
+
+  editBooks();
+}
+
+function editBooks() {
+  const books = document.querySelectorAll('.book-info')
+  books.forEach(book => {
+    const del = book.querySelector('#deleteBook');
+
+    del.addEventListener('click', () => {
+      //removes in book from the myLibrary array
+      const title = book.querySelector('.title').textContent;
+      const index = myLibrary.findIndex(obj => obj.title === title)
+      myLibrary.splice(index, 1)
+      
+      updateLibrary()
+    })
+
+    // Add edit existing book eventlistener
   })
 }
 
@@ -68,6 +88,10 @@ cancelBtn.onclick = closePopUp;
 decrement.onclick = decreasePageNumber;
 increment.onclick = increasePageNumber;
 submit.onclick    = submitForm;
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePopUp();
+})
 
 
 // Functions
