@@ -4,7 +4,6 @@
   --lavander:   #363062;
   --purple:     #4D4C7D;
   --pale-purple:#827397;
-  --cream:      #E9D5DA;
   --container-size: min(1100px, 90%);
 }
 
@@ -162,7 +161,6 @@ input {
 .status-read,
 .pageNumber {
   width: 100%;
-  /* border: 1px solid black; */
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -285,5 +283,15 @@ section.edit-book {
 .read {
   display: flex;
   gap: 5px;
+}
+
+@media (max-width: 800px) {
+  header svg {
+    width: 50px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
 }
 
