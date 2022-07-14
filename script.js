@@ -1,28 +1,34 @@
 const editSVG = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H10V20.1L20 10.1V8L14 2H6M13 3.5L18.5 9H13V3.5M20.1 13C20 13 19.8 13.1 19.7 13.2L18.7 14.2L20.8 16.3L21.8 15.3C22 15.1 22 14.7 21.8 14.5L20.5 13.2C20.4 13.1 20.3 13 20.1 13M18.1 14.8L12 20.9V23H14.1L20.2 16.9L18.1 14.8Z" /></svg>`;
 const deleteSVG = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>`;
+const checkmark = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" /></svg>`
+const wrongmark = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>`
+
+let temporaryIndex = undefined;
 
 let myLibrary = loadPreviousSession();
 updateLibrary();
 
-function Book(title, author, pages, status) {
+function Book(title, author, pages, status, readIcon, color) {
   this.title  = title;
   this.author = author;
   this.pages  = pages;
   this.read   = status;
+  this.readIcon = readIcon;
+  this.color = color;
 
   this.HTMLTemplate = `
       <h2 class="title">${this.title}</h2>
       <hr>
       <p class="author"> By ${this.author}</p>
       <p class="pages">${this.pages} pages</p>
-      <div class="read">Read</div>
+      <div class="read">Read: <span style="color:${this.color}">${this.readIcon}</span></div>
 
       <section class="edit-book">
-        <div id=editBook class="edit">${editSVG}</div>
+        <div id="editBook" class="edit">${editSVG}</div>
         <div id="deleteBook" class="delete">${deleteSVG}</div>
       </section>
-    `;
-
+      `;
+  
   this.createDiv = function() {
     const div = document.createElement("div");
     div.className = "book-info";
@@ -51,8 +57,8 @@ function updateLibrary() {
 function editBooks() {
   const books = document.querySelectorAll('.book-info')
   books.forEach(book => {
+    // Delete Book
     const del = book.querySelector('#deleteBook');
-
     del.addEventListener('click', () => {
       //removes in book from the myLibrary array
       const title = book.querySelector('.title').textContent;
@@ -62,7 +68,15 @@ function editBooks() {
       updateLibrary()
     })
 
-    // Add edit existing book eventlistener
+    // Edit Book Info
+    const edit = book.querySelector('#editBook');
+    edit.addEventListener('click', () => {
+      const title = book.querySelector('.title').textContent;
+      const index = myLibrary.findIndex(obj => obj.title === title)
+      temporaryIndex = index;
+      showModal();
+      autoInputForm(myLibrary[index], index);
+    })
   })
 }
 
@@ -86,24 +100,31 @@ $form.addEventListener('submit', (e) => {
 })
 
 addBook.onclick   = showModal;
-cancelBtn.onclick = closePopUp;
+cancelBtn.onclick = () => {
+  closePopUp();
+  resetForm(); 
+};
 decrement.onclick = decreasePageNumber;
 increment.onclick = increasePageNumber;
 submit.onclick    = submitForm;
+overlay.onclick   = closePopUp;
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closePopUp();
+  if (e.key === 'Escape') {
+    resetForm();
+    closePopUp();
+  }
 })
 
 
 // Functions
 function showModal() {
+  submit.textContent = "Submit";
   modal.classList.add('show');
   overlay.classList.add('show');
 }
 
 function closePopUp() {
-  resetForm();
   modal.classList.remove('show');
   overlay.classList.remove('show');
 }
@@ -120,22 +141,35 @@ function increasePageNumber() {
 }
 
 function resetForm() {
+  temporaryIndex = undefined;
   const inputs = document.querySelectorAll('input')
   inputs.forEach(input => {
     input.value = "";
     if (input.type == 'number') {
       input.value = 0;
     }
+    if (input.type == 'checkbox') {
+      input.checked = false;
+    }
   })
+
 }
 
 function submitForm() {
   const book = retrieveFormData();
-  if (!book) return
-  addBookToLibrary(book);
-  updateLibrary();
-  resetForm();
-  closePopUp();
+  if (submit.textContent === "Submit") {
+    if (!book) return
+    addBookToLibrary(book);
+    updateLibrary();
+    closePopUp();
+    resetForm();
+  } 
+  else if (submit.textContent === "Edit") {
+    myLibrary.splice(temporaryIndex, 1, book);
+    updateLibrary();
+    closePopUp();
+    resetForm();
+  }
 }
 
 function retrieveFormData() {
@@ -147,10 +181,35 @@ function retrieveFormData() {
 
   if (title === "" || author === "" || pages === 0) return;
 
-  const bookInfo = new Book(title, author, pages, status);
+  let icon, color;
+  if (status === true) {
+    icon = checkmark;
+    color = "green"
+  }
+  else {
+    icon = wrongmark;
+    color = "red"
+  }
+
+  const bookInfo = new Book(title, author, pages, status, icon, color);
   return bookInfo;
 }
 
+function autoInputForm(object, index) {
+  const submit = document.querySelector('#submit');
+  submit.textContent = "Edit";
+
+  const title  = document.querySelector('[name="title"]');
+  const author = document.querySelector('[name="author"]');
+  const pages  = document.querySelector('[name="pages"]');
+  const status = document.querySelector('[name="read-status"]');
+
+  title.value    = object.title;
+  author.value   = object.author;
+  pages.value    = object.pages;
+  status.checked = object.read;
+
+}
 // Save to local storage
 function saveToLocal() {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
@@ -171,5 +230,5 @@ function loadPreviousSession() {
 }
 
 function JSONToArray(book) {
-  return new Book(book.title, book.author, book.pages, book.status)
+  return new Book(book.title, book.author, book.pages, book.read, book.readIcon, book.color)
 }

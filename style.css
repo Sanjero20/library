@@ -64,6 +64,7 @@ hr {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 
 #addBook {
@@ -75,7 +76,7 @@ hr {
   padding: 10px 20px;
   border-radius: 20px;
   border: 1px solid white;
-  transition: all 0.1s ease-in-out
+  transition: all 0.1s ease-in-out;
 }
 
 #addBook:hover {
@@ -86,6 +87,7 @@ hr {
   background-color: black;
 }
 
+/* Popup */
 .overlay {
   pointer-events: none;
   opacity: 0;
@@ -93,30 +95,26 @@ hr {
   height: 100vh;
   width: 100vw;
   background-color:rgba(0,0,0,0.3);
-  transition: all 0.2s ease;
+  transition: 200ms ease-in-out;
 }
 
 .overlay.show {
-  pointer-events: auto;
+  pointer-events: all;
   opacity: 1;
 }
 
 .modal {
-  z-index: 1;
   position: fixed;
-  pointer-events: none;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
   transition: all 0.2s ease;
+  z-index: 1;
 }
 
 .modal.show {
   pointer-events: auto;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-content {
@@ -145,6 +143,7 @@ hr {
   width: 100%;
 }
 
+/* Form Content */
 form {
   display: flex;
   flex-direction: column;
@@ -162,7 +161,7 @@ input {
 
 .status-read,
 .pageNumber {
-  width: 70%;
+  width: 100%;
   /* border: 1px solid black; */
   padding: 5px;
   display: flex;
@@ -172,7 +171,7 @@ input {
 }
 
 .pageNumber input {
-  width: 50px;
+  width: 60px;
   border: 1px solid black;
 }
 
@@ -214,10 +213,12 @@ input[type=number] {
 }
 
 .btns button {
+  border-radius: 20px;
+  border: none;
   font-size: 20px;
   font-weight: bold;
   padding: 10px;
-  width: 100px;
+  width: 110px;
   color: white;
 }
 
@@ -225,9 +226,27 @@ input[type=number] {
   background-color: red;
 }
 
+#cancel:hover {
+  background-color: #900;
+}
+
+#cancel:active {
+  background-color: crimson;
+}
+
 #submit {
   background-color: rgb(0, 170, 23);
 }
+
+#submit:hover {
+  background-color: #090;
+}
+
+#submit:active {
+  background-color:springgreen;
+}
+
+/* Book Display  */
 
 .books {
   width: var(--container-size);
@@ -261,5 +280,10 @@ section.edit-book {
 .edit:hover,
 .delete:hover {
   transform: scale(1.1);
+}
+
+.read {
+  display: flex;
+  gap: 5px;
 }
 

@@ -39,13 +39,12 @@
       
       <form id="bookForm">
         <label for="title"> Title </label>
-        <input type="text" name="title" required>
+        <input type="text" name="title" required autocomplete="off">
         
         <label for="author"> Author </label>
-        <input type="text" name="author"required>
+        <input type="text" name="author" required autocomplete="off">
       
         
-        <!-- <input type="number" required> -->
         <div class="pageNumber">
           <label for="pages" >Pages </label>
           <div>
@@ -56,7 +55,7 @@
         </div>
 
         <div class="status-read">
-          <label for="read-status">Already Read</label>
+          <label for="read-status">Have you read this?</label>
           <input type="checkbox" name="read-status">
         </div>
       </form>
