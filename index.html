@@ -38,12 +38,16 @@
       </div>
       
       <form id="bookForm">
-        <label for="title"> Title </label>
-        <input type="text" name="title" required autocomplete="off">
+        <div class="textInput">
+          <label for="title"> Title </label>
+          <input type="text" name="title" required autocomplete="off">
+          <p class="error-msg"></p>
+        </div>
         
-        <label for="author"> Author </label>
-        <input type="text" name="author" required autocomplete="off">
-      
+        <div class="textInput">
+          <label for="author"> Author </label>
+          <input type="text" name="author" required autocomplete="off">
+        </div>
         
         <div class="pageNumber">
           <label for="pages" >Pages </label>

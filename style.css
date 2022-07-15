@@ -157,6 +157,17 @@ input {
   font-size: 20px;
   padding: 5px;
 }
+.textInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-msg {
+  color: red;
+  height: 15px;
+}
 
 .status-read,
 .pageNumber {
@@ -281,8 +292,11 @@ section.edit-book {
 }
 
 .read {
+  width: 100px;
+  height: 40px;
   display: flex;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 800px) {
@@ -294,4 +308,3 @@ section.edit-book {
     font-size: 40px;
   }
 }
-
